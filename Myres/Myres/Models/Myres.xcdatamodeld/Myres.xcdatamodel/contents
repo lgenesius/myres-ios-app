@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="17709" systemVersion="20D91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Adventure" representedClassName="Adventure" syncable="YES" codeGenerationType="category">
+        <attribute name="date" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="location" optional="YES" attributeType="String"/>
+        <attribute name="photo" optional="YES" attributeType="String"/>
+        <attribute name="story" optional="YES" attributeType="String"/>
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="parentAlbum" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="adventures" inverseEntity="Album"/>
+    </entity>
+    <entity name="Album" representedClassName="Album" syncable="YES" codeGenerationType="category">
+        <attribute name="title" optional="YES" attributeType="String"/>
+        <relationship name="adventures" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Adventure" inverseName="parentAlbum" inverseEntity="Adventure"/>
+    </entity>
+    <elements>
+        <element name="Adventure" positionX="-54" positionY="9" width="128" height="119"/>
+        <element name="Album" positionX="-63" positionY="-18" width="128" height="59"/>
+    </elements>
+</model>
