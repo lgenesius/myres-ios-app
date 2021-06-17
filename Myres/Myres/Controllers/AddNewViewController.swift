@@ -53,7 +53,7 @@ class AddNewViewController: UIViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(cancelAction), name: Notification.Name("canceledAction\(self)"), object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(takePhotoAction), name: Notification.Name("cameraAction"), object: self)
+        NotificationCenter.default.addObserver(self, selector: #selector(takePhotoAction), name: Notification.Name("cameraAction"), object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(photoLibraryAction), name: Notification.Name("photoLibraryAction"), object: nil)
         

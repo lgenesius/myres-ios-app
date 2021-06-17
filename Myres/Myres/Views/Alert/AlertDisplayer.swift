@@ -80,6 +80,6 @@ public class AlertDisplayer {
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
         
         vc.present(actionSheet, animated: true, completion: nil)
-    }
+    } 
     
 }
