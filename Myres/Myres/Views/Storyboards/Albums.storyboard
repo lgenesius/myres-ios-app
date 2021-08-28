@@ -131,7 +131,7 @@
                             <constraint firstItem="X4j-Fy-u7I" firstAttribute="bottom" secondItem="ANa-0Z-6z2" secondAttribute="bottom" id="g5n-DB-gqn"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Albums" image="character.book.closed.fill" catalog="system" id="ild-bB-sd0"/>
+                    <tabBarItem key="tabBarItem" title="Albums" image="book.closed.fill" catalog="system" id="ild-bB-sd0"/>
                     <navigationItem key="navigationItem" title="My Albums" largeTitleDisplayMode="always" id="pgh-CE-cnn">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="plus" catalog="system" id="HBt-Sp-APT">
                             <connections>
@@ -149,7 +149,6 @@
                         <outlet property="albumCollectionView" destination="ANa-0Z-6z2" id="JAZ-bi-ROw"/>
                         <outlet property="leftBarButton" destination="HBt-Sp-APT" id="3i5-Ah-oIa"/>
                         <outlet property="rightBarButton" destination="cdp-0N-anT" id="swI-8G-ohb"/>
-                        <segue destination="2m9-n5-7Vn" kind="show" id="0aj-O4-cIg"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6i1-Sf-gly" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -165,7 +164,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="GNk-8F-zgw">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="15" minimumInteritemSpacing="0.0" id="Wlw-WF-d4X">
                                     <size key="itemSize" width="128" height="128"/>
@@ -255,7 +254,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="character.book.closed.fill" catalog="system" width="115" height="128"/>
+        <image name="book.closed.fill" catalog="system" width="115" height="128"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="question-mark" width="658" height="398"/>

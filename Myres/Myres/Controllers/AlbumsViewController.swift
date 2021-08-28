@@ -1,14 +1,9 @@
 import UIKit
 
 class AlbumsViewController: UIViewController {
-
-    // MARK: - Outlets
-    
     @IBOutlet weak var albumCollectionView: UICollectionView!
     @IBOutlet weak var rightBarButton: UIBarButtonItem!
     @IBOutlet weak var leftBarButton: UIBarButtonItem!
-    
-    // MARK: - Attributes
     
     private var albums = [Album]()
     private var selectedIndexPath: IndexPath?
@@ -19,28 +14,27 @@ class AlbumsViewController: UIViewController {
         }
     }
     
-    // MARK: - Life Cycle
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
         albumCollectionView.delegate = self
         albumCollectionView.dataSource = self
         loadAlbums()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: Notification.Name("updatePhotoAlbum"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: .updatePhotoAlbum, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(saveAlbum), name: Notification.Name("oneFieldAlertAction\(self)"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         navigationItem.largeTitleDisplayMode = .always
     }
+}
     
-    // MARK: - Set UI
+// MARK: - Layouts
+
+extension AlbumsViewController {
     
     private func loadAlbums() {
         if let albums = CoreDataService.instance.fetchAllAlbums() {
@@ -110,8 +104,11 @@ class AlbumsViewController: UIViewController {
             leftBarButton.isEnabled = false
         }
     }
+}
     
-    // MARK: - Button Action
+// MARK: - Button Actions
+
+extension AlbumsViewController {
     
     @IBAction func selectTapButton(_ sender: Any) {
         condition = (condition == .unselect) ? .selected : .unselect; setCanceledUI()
@@ -122,7 +119,7 @@ class AlbumsViewController: UIViewController {
     }
     
     private func plusTapped() {
-        AlertDisplayer.instance.showOneTextFieldAlert(vc: self, title: "New Album", message: "Enter albu's title.")
+        AlertDisplayer.instance.showOneTextFieldAlert(vc: self, title: "New Album", message: "Enter album's title.")
     }
     
     private func removeTapped() {
@@ -136,18 +133,21 @@ class AlbumsViewController: UIViewController {
         CoreDataService.instance.deleteAlbum(album: albums[selectedIndexPath!.row])
         selectedIndexPath = nil
         
-        NotificationCenter.default.post(name: Notification.Name("albumAdded"), object: nil)
+        NotificationCenter.default.post(name: .albumAdded, object: nil)
         
         showRemoveIcon()
         loadAlbums()
     }
-    
-    // MARK: - Navigation
+}
+
+// MARK: - Navigation
+
+extension AlbumsViewController {
     
     private func navigateToAlbumsDetail(indexPath: IndexPath) {
         albumCollectionView.deselectItem(at: indexPath, animated: true)
         
-        let detailAlbumVC = storyboard?.instantiateViewController(identifier: "detailAlbum") as! DetailAlbumViewController
+        let detailAlbumVC = storyboard?.instantiateViewController(identifier: VCId.detailAlbum) as! DetailAlbumViewController
         
         detailAlbumVC.title = albums[indexPath.row].title
         detailAlbumVC.album = albums[indexPath.row]
@@ -176,32 +176,17 @@ extension AlbumsViewController: UICollectionViewDelegate {
 
 extension AlbumsViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return albums.count
+        albums.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = albumCollectionView.dequeueReusableCell(withReuseIdentifier: "albumCell", for: indexPath) as! AlbumCollectionViewCell
-        
-        cell.layer.cornerRadius = 10
-        
-        if let firstImage = albums[indexPath.row].fetchFirstImageFromChild() {
-            
-            cell.albumImageView.image = FileManagerService.instance.getImageFromStorage(imageName: firstImage)
-        } else {
-            cell.albumImageView.image = UIImage(named: "question-mark")
+        guard let cell = albumCollectionView.dequeueReusableCell(withReuseIdentifier: CellId.albumCell, for: indexPath) as? AlbumCollectionViewCell else {
+            return UICollectionViewCell()
         }
-        cell.albumLabel.text = albums[indexPath.row].title
-        cell.layer.borderWidth = 2
-        cell.layer.borderColor = UIColor.label.cgColor
-        print("lebar cell \(cell.frame.size.width)")
-        print("tinggi cell \(cell.frame.size.height)")
+        
+        cell.configureCell(imageID: albums[indexPath.row].fetchFirstImageFromChild(), title: albums[indexPath.row].title)
+        
         return cell
-    }
-}
-
-extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        CGSize(width: 314, height: 300)
     }
 }

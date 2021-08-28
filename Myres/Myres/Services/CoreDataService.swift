@@ -2,43 +2,38 @@ import Foundation
 import CoreData
 import UIKit
 
-public class CoreDataService {
-    public static let instance = CoreDataService()
+class CoreDataService {
+    static let instance = CoreDataService()
     
     private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
-    public func fetchAllAdventures() -> [Adventure]? {
+    func fetchAllAdventures() -> [Adventure]? {
+        let request = Adventure.fetchRequest() as NSFetchRequest<Adventure>
+        let sort = NSSortDescriptor(key: "date", ascending: true)
+        request.sortDescriptors = [sort]
         
         do {
-            let request = Adventure.fetchRequest() as NSFetchRequest<Adventure>
-            let sort = NSSortDescriptor(key: "date", ascending: true)
-            
-            request.sortDescriptors = [sort]
-            
             return try context.fetch(request)
-        }
-        catch {
+        } catch {
             print("ERROR Fetch Request \(error)")
         }
         
         return nil
     }
     
-    public func fetchAllAlbums() -> [Album]? {
+    func fetchAllAlbums() -> [Album]? {
+        let request = Album.fetchRequest() as NSFetchRequest<Album>
         
         do {
-            let request = Album.fetchRequest() as NSFetchRequest<Album>
-            
             return try context.fetch(request)
-        }
-        catch {
+        } catch {
             print("ERROR Fetch Request \(error)")
         }
         
         return nil
     }
     
-    public func saveAdventure(title: String, location: String, story: String, date: Date, photo: String, album: Album?) -> Bool {
+    func saveAdventure(title: String, location: String, story: String, date: Date, photo: String, album: Album?) -> Bool {
         
         let newAdventure = Adventure(context: self.context)
         
@@ -58,8 +53,7 @@ public class CoreDataService {
         
         do {
             try context.save()
-        }
-        catch {
+        } catch {
             bool = false
             print(error.localizedDescription)
         }
@@ -67,37 +61,32 @@ public class CoreDataService {
         return bool
     }
     
-    public func deleteAdventure(adventure: Adventure) {
-        self.context.delete(adventure)
-        
+    func saveData() {
         do {
             try context.save()
-        }
-        catch {
+        } catch {
             print(error.localizedDescription)
         }
+    }
+    
+    public func deleteAdventure(adventure: Adventure) {
+        self.context.delete(adventure)
+        saveData()
     }
     
     public func saveAlbum(title: String) {
         let newAlbum = Album(context: self.context)
-        
         newAlbum.title = title
-        
-        do {
-            try context.save()
-        }
-        catch {
-            print(error.localizedDescription)
-        }
+        saveData()
     }
     
     public func fetchAdventuresBasedOnAlbum(album: Album) -> [Adventure]? {
+        let request = Adventure.fetchRequest() as NSFetchRequest<Adventure>
+        request.predicate = NSPredicate(format: "parentAlbum.title MATCHES %@", album.title!)
+        let sort = NSSortDescriptor(key: "date", ascending: true)
+        request.sortDescriptors = [sort]
+        
         do {
-            let request = Adventure.fetchRequest() as NSFetchRequest<Adventure>
-            request.predicate = NSPredicate(format: "parentAlbum.title MATCHES %@", album.title!)
-            let sort = NSSortDescriptor(key: "date", ascending: true)
-            request.sortDescriptors = [sort]
-            
             return try context.fetch(request)
         }
         catch {
@@ -109,27 +98,13 @@ public class CoreDataService {
     
     public func deleteAlbum(album: Album) {
         self.context.delete(album)
-        
-        do {
-            try context.save()
-        }
-        catch {
-            print(error.localizedDescription)
-        }
+        saveData()
     }
     
     public func updateParentAlbum(adventure: Adventure, album: Album?) {
-        
         let currentAdventure = adventure
-        
         currentAdventure.parentAlbum = album
-        
-        do {
-            try self.context.save()
-        }
-        catch {
-            print(error.localizedDescription)
-        }
+        saveData()
     }
     
     public func updateAdventure(adventure: Adventure, title: String, location: String, story: String, album: Album?) {
@@ -142,12 +117,6 @@ public class CoreDataService {
         
         currentAdventure.parentAlbum = album
         NotificationCenter.default.post(name: Notification.Name("updatePhotoAlbum"), object: nil)
-        
-        do {
-            try self.context.save()
-        }
-        catch {
-            print(error.localizedDescription)
-        }
+        saveData()
     }
 }

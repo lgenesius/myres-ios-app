@@ -19,4 +19,21 @@ class AlbumCollectionViewCell: UICollectionViewCell {
             selectedIndicator.isHidden = !isSelected
         }
     }
+    
+    func configureCell(imageID: String?, title: String?) {
+        if let firstImage = imageID {
+            albumImageView.image = FileManagerService.instance.getImageFromStorage(imageName: firstImage)
+        } else {
+            albumImageView.image = UIImage(named: "question-mark")
+        }
+        albumLabel.text = title
+        
+        modifyLayouts()
+    }
+    
+    func modifyLayouts() {
+        layer.cornerRadius = 10
+        layer.borderWidth = 2
+        layer.borderColor = UIColor.label.cgColor
+    }
 }

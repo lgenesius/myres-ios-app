@@ -33,7 +33,7 @@ class AllAdventuresViewController: UIViewController {
         adventuresCollectionView.dataSource = self
         
         loadAdventures()
-        NotificationCenter.default.addObserver(self, selector: #selector(selectorLoadAdventures), name: Notification.Name("adventureAdded"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(selectorLoadAdventures), name: .adventureAdded, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -134,8 +134,8 @@ extension AllAdventuresViewController {
     private func navigationToPhotoPreview(indexPath: IndexPath) {
         adventuresCollectionView.deselectItem(at: indexPath, animated: true)
         
-        let photoPreviewStoryboard = UIStoryboard(name: "PhotoPreview", bundle: nil)
-        let photoPreviewVC = photoPreviewStoryboard.instantiateViewController(identifier: "photoPreview") as! PhotoPreviewViewController
+        let photoPreviewStoryboard = UIStoryboard(name: StoryboardId.PhotoPreview, bundle: nil)
+        let photoPreviewVC = photoPreviewStoryboard.instantiateViewController(identifier: VCId.photoPreview) as PhotoPreviewViewController
         
         photoPreviewVC.title = DateFormatterService.instance.dateToString(date: adventures[indexPath.row].date!)
         photoPreviewVC.adventures = self.adventures
@@ -201,16 +201,20 @@ extension AllAdventuresViewController: UICollectionViewDelegate {
 
 extension AllAdventuresViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return adventures.count
+        adventures.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = adventuresCollectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! ImageCollectionViewCell
+        guard let cell = adventuresCollectionView.dequeueReusableCell(withReuseIdentifier: CellId.imageCell, for: indexPath) as? ImageCollectionViewCell else {
+            return UICollectionViewCell()
+        }
+        guard let photoID = adventures[indexPath.row].photo else {
+            return UICollectionViewCell()
+        }
         
-        cell.configureCell(image: FileManagerService.instance.getImageFromStorage(imageName: adventures[indexPath.row].photo!)!)
-        images.append(cell.imageView.image!)
+        cell.configureCell(image: FileManagerService.instance.getImageFromStorage(imageName: photoID) ?? UIImage(named: "question-mark")!)
+        images.append(cell.imageView.image ?? UIImage(named: "question-mark")!)
         
         return cell
     }
@@ -225,7 +229,6 @@ extension AllAdventuresViewController: UICollectionViewDelegateFlowLayout {
         let height = view.frame.size.width * 0.3
         let width = view.frame.size.width
         
-            // each size of cell will be 30%
         return CGSize(width: width * 0.3, height: height)
     }
 }
