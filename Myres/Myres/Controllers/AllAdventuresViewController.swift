@@ -1,21 +1,9 @@
-//
-//  AllAdventuresViewController.swift
-//  Myres
-//
-//  Created by Luis Genesius on 28/04/21.
-//
-
 import UIKit
 
 class AllAdventuresViewController: UIViewController {
-
-    // MARK: - Outlets
-    
     @IBOutlet weak var adventuresCollectionView: UICollectionView!
     @IBOutlet weak var rightBarButton: UIBarButtonItem!
     @IBOutlet weak var leftBarButton: UIBarButtonItem!
-    
-    // MARK: Attributes
     
     private var adventures = [Adventure]()
     private var images = [UIImage]()
@@ -33,7 +21,8 @@ class AllAdventuresViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Do any additional setup after loading the view.
+        setInitialUI()
+        
         AudioService.instance.playBackgroundMusic(sound: "bgm", type: "mp3")
         
         NotificationCenter.default.addObserver(self, selector: #selector(appMoveToBackground), name: UIApplication.willResignActiveNotification, object: nil)
@@ -42,7 +31,6 @@ class AllAdventuresViewController: UIViewController {
         
         adventuresCollectionView.delegate = self
         adventuresCollectionView.dataSource = self
-        setInitialUI()
         
         loadAdventures()
         NotificationCenter.default.addObserver(self, selector: #selector(selectorLoadAdventures), name: Notification.Name("adventureAdded"), object: nil)
@@ -65,7 +53,8 @@ class AllAdventuresViewController: UIViewController {
             adventures = tempAdventures
         }
         
-        DispatchQueue.main.async {
+        DispatchQueue.main.async { [weak self] in
+            guard let self = self else { return }
             self.adventuresCollectionView.reloadData()
         }
     }
@@ -79,8 +68,11 @@ class AllAdventuresViewController: UIViewController {
     @objc func appMoveToForeground() {
         AudioService.instance.resumeMusic()
     }
-    
-    // MARK: - Set UI
+}
+
+// MARK: - Layouts
+
+extension AllAdventuresViewController {
     
     private func setInitialUI() {
         leftBarButton.tintColor = .clear
@@ -134,9 +126,11 @@ class AllAdventuresViewController: UIViewController {
             leftBarButton.isEnabled = false
         }
     }
-    
-    // MARK: - Navigation
-    
+}
+
+// MARK: - Navigation
+
+extension AllAdventuresViewController {
     private func navigationToPhotoPreview(indexPath: IndexPath) {
         adventuresCollectionView.deselectItem(at: indexPath, animated: true)
         
@@ -151,9 +145,11 @@ class AllAdventuresViewController: UIViewController {
         
         self.navigationController?.pushViewController(photoPreviewVC, animated: true)
     }
+}
     
-    // MARK: - Button Actions
-    
+// MARK: - Button Actions
+   
+extension AllAdventuresViewController {
     @IBAction func selectTapButton(_ sender: Any) {
         condition = (condition == .unselect) ? .selected : .unselect; setCanceledUI()
     }
@@ -177,39 +173,10 @@ class AllAdventuresViewController: UIViewController {
 // MARK: - Collection View Delegate
 
 extension AllAdventuresViewController: UICollectionViewDelegate {
-    
-}
-
-// MARK: Collection View Data Source
-
-extension AllAdventuresViewController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        
-        return adventures.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = adventuresCollectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! ImageCollectionViewCell
-        
-        cell.imageView.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.3).isActive = true
-        cell.imageView.heightAnchor.constraint(equalToConstant: view.frame.size.width * 0.3).isActive = true
-        cell.layer.cornerRadius = 10
-        
-        cell.imageView.image = FileManagerService.instance.getImageFromStorage(imageName: adventures[indexPath.row].photo!)
-        
-        images.append(cell.imageView.image!)
-        
-        print(adventures[indexPath.row].photo!)
-        
-        return cell
-    }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         switch condition {
             case .unselect:
-                // navigation
                 navigationToPhotoPreview(indexPath: indexPath)
                 break
             case .selected:
@@ -228,6 +195,25 @@ extension AllAdventuresViewController: UICollectionViewDataSource {
         
         checkSelectedCell()
     }
+}
+
+// MARK: Collection View Data Source
+
+extension AllAdventuresViewController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        
+        return adventures.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = adventuresCollectionView.dequeueReusableCell(withReuseIdentifier: "imageCell", for: indexPath) as! ImageCollectionViewCell
+        
+        cell.configureCell(image: FileManagerService.instance.getImageFromStorage(imageName: adventures[indexPath.row].photo!)!)
+        images.append(cell.imageView.image!)
+        
+        return cell
+    }
     
 }
 
@@ -236,7 +222,6 @@ extension AllAdventuresViewController: UICollectionViewDataSource {
 extension AllAdventuresViewController: UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
         let height = view.frame.size.width * 0.3
         let width = view.frame.size.width
         

@@ -1,10 +1,3 @@
-//
-//  AlbumTableViewCell.swift
-//  Myres
-//
-//  Created by Luis Genesius on 30/04/21.
-//
-
 import UIKit
 
 class AlbumTableViewCell: UITableViewCell {

@@ -1,20 +1,11 @@
-//
-//  CoreDataService.swift
-//  Myres
-//
-//  Created by Luis Genesius on 29/04/21.
-//
-
 import Foundation
 import CoreData
 import UIKit
 
 public class CoreDataService {
-    
-    // Singleton pattern
     public static let instance = CoreDataService()
     
-    public let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+    private let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     public func fetchAllAdventures() -> [Adventure]? {
         

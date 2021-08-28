@@ -1,10 +1,3 @@
-//
-//  AlertDisplayer.swift
-//  Myres
-//
-//  Created by Luis Genesius on 05/05/21.
-//
-
 import UIKit
 
 public class AlertDisplayer {

@@ -73,10 +73,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="390" height="844"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Xv4-0s-B01">
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Xv4-0s-B01">
                                 <rect key="frame" x="0.0" y="88" width="390" height="673"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="15" minimumInteritemSpacing="0.0" id="2rJ-6u-GKi">
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="15" minimumInteritemSpacing="0.0" id="2rJ-6u-GKi">
                                     <size key="itemSize" width="128" height="128"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -86,7 +86,7 @@
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="imageCell" id="gMX-7d-VZo" customClass="ImageCollectionViewCell" customModule="Myres" customModuleProvider="target">
                                         <rect key="frame" x="10" y="0.0" width="128" height="128"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="eTp-g8-k0F">
+                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="sFQ-wD-uhc">
                                             <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -107,14 +107,14 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="c5N-Xk-sME" secondAttribute="trailing" constant="5" id="CRy-Be-QDx"/>
-                                                <constraint firstItem="Au8-PO-Az8" firstAttribute="top" secondItem="eTp-g8-k0F" secondAttribute="top" id="LEF-ku-QSW"/>
+                                                <constraint firstItem="Au8-PO-Az8" firstAttribute="top" secondItem="sFQ-wD-uhc" secondAttribute="top" id="LEF-ku-QSW"/>
                                                 <constraint firstAttribute="bottom" secondItem="c5N-Xk-sME" secondAttribute="bottom" constant="5" id="SQn-QN-i7Z"/>
                                                 <constraint firstAttribute="trailing" secondItem="4RT-Cm-CMb" secondAttribute="trailing" id="UN8-wa-KYj"/>
                                                 <constraint firstAttribute="bottom" secondItem="Au8-PO-Az8" secondAttribute="bottom" id="ZDg-cI-MmL"/>
                                                 <constraint firstAttribute="trailing" secondItem="Au8-PO-Az8" secondAttribute="trailing" id="jPI-0m-VWH"/>
-                                                <constraint firstItem="Au8-PO-Az8" firstAttribute="leading" secondItem="eTp-g8-k0F" secondAttribute="leading" id="n5Q-ME-23Y"/>
-                                                <constraint firstItem="4RT-Cm-CMb" firstAttribute="top" secondItem="eTp-g8-k0F" secondAttribute="top" id="noj-hj-iEF"/>
-                                                <constraint firstItem="4RT-Cm-CMb" firstAttribute="leading" secondItem="eTp-g8-k0F" secondAttribute="leading" id="w3W-Hg-ac1"/>
+                                                <constraint firstItem="Au8-PO-Az8" firstAttribute="leading" secondItem="sFQ-wD-uhc" secondAttribute="leading" id="n5Q-ME-23Y"/>
+                                                <constraint firstItem="4RT-Cm-CMb" firstAttribute="top" secondItem="sFQ-wD-uhc" secondAttribute="top" id="noj-hj-iEF"/>
+                                                <constraint firstItem="4RT-Cm-CMb" firstAttribute="leading" secondItem="sFQ-wD-uhc" secondAttribute="leading" id="w3W-Hg-ac1"/>
                                                 <constraint firstAttribute="bottom" secondItem="4RT-Cm-CMb" secondAttribute="bottom" id="zN1-72-ge6"/>
                                             </constraints>
                                         </collectionViewCellContentView>

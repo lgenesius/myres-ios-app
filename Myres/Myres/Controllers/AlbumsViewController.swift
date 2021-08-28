@@ -1,10 +1,3 @@
-//
-//  AlbumsViewController.swift
-//  Myres
-//
-//  Created by Luis Genesius on 28/04/21.
-//
-
 import UIKit
 
 class AlbumsViewController: UIViewController {
@@ -167,7 +160,16 @@ class AlbumsViewController: UIViewController {
 // MARK: - Collection View Delegate
 
 extension AlbumsViewController: UICollectionViewDelegate {
-    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        switch condition {
+        case .unselect:
+            navigateToAlbumsDetail(indexPath: indexPath)
+            break
+        case .selected:
+            selectedIndexPath = indexPath
+            showRemoveIcon()
+        }
+    }
 }
 
 // MARK: - Collection View Data Source
@@ -192,18 +194,14 @@ extension AlbumsViewController: UICollectionViewDataSource {
         cell.albumLabel.text = albums[indexPath.row].title
         cell.layer.borderWidth = 2
         cell.layer.borderColor = UIColor.label.cgColor
-        
+        print("lebar cell \(cell.frame.size.width)")
+        print("tinggi cell \(cell.frame.size.height)")
         return cell
     }
+}
 
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        switch condition {
-        case .unselect:
-            navigateToAlbumsDetail(indexPath: indexPath)
-            break
-        case .selected:
-            selectedIndexPath = indexPath
-            showRemoveIcon()
-        }
+extension AlbumsViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        CGSize(width: 314, height: 300)
     }
 }

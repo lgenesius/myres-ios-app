@@ -1,10 +1,3 @@
-//
-//  FileManagerService.swift
-//  Myres
-//
-//  Created by Luis Genesius on 01/05/21.
-//
-
 import Foundation
 import UIKit
 
@@ -34,16 +27,18 @@ public class FileManagerService {
             try! fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
         }
     }
-    
-//    public func getDirectoryPath() -> NSURL {
-//
-//        let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString)
-//
-//        let url = NSURL(string: path as String)
-//
-//        return url!
-//
-//    }
+
+/*
+    public func getDirectoryPath() -> NSURL {
+
+        let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString)
+
+        let url = NSURL(string: path as String)
+
+        return url!
+
+    }
+*/
     
     public func getStoragePath() -> NSURL {
         let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(folderImageName)
@@ -65,20 +60,20 @@ public class FileManagerService {
         fileManager.createFile(atPath: urlString as String, contents: imageData, attributes: nil)
         
         
-        // save image directly to document directory
-//        let document = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
-//        let fileName = "\(imageName).jpg"
-//        let imgurl = document.appendingPathComponent(fileName)
-//        if !FileManager.default.fileExists(atPath: imgurl.path)
-//                    {
-//                        do{
-//                            try image.jpegData(compressionQuality: 1)!.write(to: imgurl)
-//                            print("image save")
-//                        }
-//                        catch{
-//                            print("image not save")
-//                        }
-//                    }
+/* save image directly to document directory
+         let document = try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true)
+         let fileName = "\(imageName).jpg"
+         let imgurl = document.appendingPathComponent(fileName)
+         if !FileManager.default.fileExists(atPath: imgurl.path) {
+             do {
+                try image.jpegData(compressionQuality: 1)!.write(to: imgurl)
+                print("image save")
+             } catch {
+                print("image not save")
+             }
+         }
+*/
+        
     }
     
     public func getImageFromStorage(imageName: String) -> UIImage? {
@@ -87,11 +82,14 @@ public class FileManagerService {
         if let imagePath = (self.getStoragePath() as NSURL).appendingPathComponent("\(imageName)") {
             imageURL = imagePath
         }
-//        else if let imagePath = (self.getDirectoryPath() as NSURL).appendingPathComponent("\(imageName).png") {
-//            imageURL = imagePath
-//        } else if let imagePath = (self.getDirectoryPath() as NSURL).appendingPathComponent("\(imageName).jpg") {
-//            imageURL = imagePath
-//        }
+        
+/* Documentation
+        else if let imagePath = (self.getDirectoryPath() as NSURL).appendingPathComponent("\(imageName).png") {
+            imageURL = imagePath
+        } else if let imagePath = (self.getDirectoryPath() as NSURL).appendingPathComponent("\(imageName).jpg") {
+            imageURL = imagePath
+        }
+*/
         
         let urlString: String = imageURL!.absoluteString
         
@@ -111,11 +109,14 @@ public class FileManagerService {
         if let imagePath = (self.getStoragePath() as NSURL).appendingPathComponent("\(imageName)") {
             imageURL = imagePath
         }
-//        else if let imagePath = (self.getDirectoryPath() as NSURL).appendingPathComponent("\(imageName).png") {
-//            imageURL = imagePath
-//        } else if let imagePath = (self.getDirectoryPath() as NSURL).appendingPathComponent("\(imageName).jpg") {
-//            imageURL = imagePath
-//        }
+
+/* Documentation
+        else if let imagePath = (self.getDirectoryPath() as NSURL).appendingPathComponent("\(imageName).png") {
+            imageURL = imagePath
+        } else if let imagePath = (self.getDirectoryPath() as NSURL).appendingPathComponent("\(imageName).jpg") {
+            imageURL = imagePath
+        }
+*/
         
         if fileManager.fileExists(atPath: imageURL!.absoluteString) {
             try! fileManager.removeItem(atPath: imageURL!.absoluteString)

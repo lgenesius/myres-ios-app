@@ -1,10 +1,3 @@
-//
-//  ImageCollectionViewCell.swift
-//  Myres
-//
-//  Created by Luis Genesius on 28/04/21.
-//
-
 import UIKit
 
 class ImageCollectionViewCell: UICollectionViewCell {
@@ -25,4 +18,12 @@ class ImageCollectionViewCell: UICollectionViewCell {
             selectedIndicator.isHidden = !isSelected
         }
     }
+    
+    func configureCell(image: UIImage) {
+        self.imageView.image = image
+        self.imageView.frame = self.contentView.frame
+        
+        self.layer.cornerRadius = 10
+    }
+    
 }

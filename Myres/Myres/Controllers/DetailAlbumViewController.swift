@@ -1,10 +1,3 @@
-//
-//  DetailAlbumViewController.swift
-//  Myres
-//
-//  Created by Luis Genesius on 03/05/21.
-//
-
 import UIKit
 
 class DetailAlbumViewController: UIViewController {
