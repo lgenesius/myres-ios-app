@@ -22,11 +22,22 @@
                         <segue destination="mKQ-vd-IWQ" kind="relationship" relationship="viewControllers" id="53S-iR-3ta"/>
                         <segue destination="VMa-iC-WJe" kind="relationship" relationship="viewControllers" id="EgI-oB-4jC"/>
                         <segue destination="HYH-cb-kTg" kind="relationship" relationship="viewControllers" id="Mmo-qm-mfs"/>
+                        <segue destination="MTh-AL-QgY" kind="relationship" relationship="viewControllers" id="tXY-je-DyJ"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EUn-9X-Dit" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-562" y="216"/>
+        </scene>
+        <!--Setting-->
+        <scene sceneID="6KG-30-Nr7">
+            <objects>
+                <viewControllerPlaceholder storyboardName="Setting" id="MTh-AL-QgY" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="UVC-0m-yIL"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="m7w-gw-Gn6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-625" y="744"/>
         </scene>
         <!--Albums-->
         <scene sceneID="NTh-SK-FB7">
@@ -136,7 +147,7 @@
                             <constraint firstItem="kNe-Mo-skO" firstAttribute="bottom" secondItem="Xv4-0s-B01" secondAttribute="bottom" id="aHS-2D-Ujf"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Adventures" image="photo.fill.on.rectangle.fill" catalog="system" id="yeJ-li-UWF"/>
+                    <tabBarItem key="tabBarItem" title="Adventures" image="photo.on.rectangle" catalog="system" selectedImage="photo.fill.on.rectangle.fill" id="yeJ-li-UWF"/>
                     <navigationItem key="navigationItem" title="My Adventures" id="9Cd-1q-HhC">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="trash" catalog="system" id="O4k-36-XdT">
                             <connections>
@@ -163,6 +174,7 @@
     <resources>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="photo.fill.on.rectangle.fill" catalog="system" width="128" height="96"/>
+        <image name="photo.on.rectangle" catalog="system" width="128" height="96"/>
         <image name="trash" catalog="system" width="121" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

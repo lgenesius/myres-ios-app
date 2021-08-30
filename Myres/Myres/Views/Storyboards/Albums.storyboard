@@ -131,7 +131,7 @@
                             <constraint firstItem="X4j-Fy-u7I" firstAttribute="bottom" secondItem="ANa-0Z-6z2" secondAttribute="bottom" id="g5n-DB-gqn"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Albums" image="book.closed.fill" catalog="system" id="ild-bB-sd0"/>
+                    <tabBarItem key="tabBarItem" title="Albums" image="book.closed" catalog="system" selectedImage="book.closed.fill" id="ild-bB-sd0"/>
                     <navigationItem key="navigationItem" title="My Albums" largeTitleDisplayMode="always" id="pgh-CE-cnn">
                         <barButtonItem key="leftBarButtonItem" title="Item" image="plus" catalog="system" id="HBt-Sp-APT">
                             <connections>
@@ -254,6 +254,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="book.closed" catalog="system" width="115" height="128"/>
         <image name="book.closed.fill" catalog="system" width="115" height="128"/>
         <image name="checkmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="plus" catalog="system" width="128" height="113"/>

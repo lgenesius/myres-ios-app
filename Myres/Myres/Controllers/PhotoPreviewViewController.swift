@@ -22,7 +22,7 @@ class PhotoPreviewViewController: UIViewController {
     private var visualEffectView: UIVisualEffectView!
     
     private let cardHeight: CGFloat = 500
-    private let cardHandleAreaHeight: CGFloat = 72
+    private let cardHandleAreaHeight: CGFloat = 82
     
     private var cardVisible = false
     private var nextState: Mode.CardState {
@@ -36,15 +36,13 @@ class PhotoPreviewViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
         setInitialNavigationBar()
         
         photoCollectionView.dataSource = self
         photoCollectionView.delegate = self
         photoCollectionView.reloadData()
         photoCollectionView.backgroundColor = .clear
-//        photoCollectionView.layoutIfNeeded()
         
         DispatchQueue.main.async {
             self.photoCollectionView.scrollToItem(at: self.initialIndexPath, at: .centeredHorizontally, animated: false)
@@ -57,9 +55,9 @@ class PhotoPreviewViewController: UIViewController {
         backgroundImageView.image = images[initialIndexPath.row]
         changeCardText()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateAction), name: Notification.Name("updateAction"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateAction), name: .updateAction, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(shareAction), name: Notification.Name("shareAction"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(shareAction), name: .shareAction, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -85,8 +83,11 @@ class PhotoPreviewViewController: UIViewController {
     @objc func shareAction() {
         self.presentShareSheet()
     }
-    
-    // MARK: - Set UI
+}
+
+// MARK: - Layouts
+
+extension PhotoPreviewViewController {
     
     private func setInitialNavigationBar() {
         let backButton = UIBarButtonItem(title: "Back", style: .plain, target: self, action: nil)
@@ -111,8 +112,6 @@ class PhotoPreviewViewController: UIViewController {
         }
         
     }
-    
-    // MARK: - Set Bottom Card UI
     
     private func setVisualEffect() {
         visualEffect.effect = UIBlurEffect(style: .regular)
@@ -141,7 +140,11 @@ class PhotoPreviewViewController: UIViewController {
         bottomCardVC.storyLabel.text = adventures[insideIndexPath.row].story
     }
     
-    // MARK: - Set Gesture
+}
+
+// MARK: - Gesture
+
+extension PhotoPreviewViewController {
     
     private func setPanGesture() {
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(PhotoPreviewViewController.handleCardPan(recognizer:)))
@@ -165,7 +168,11 @@ class PhotoPreviewViewController: UIViewController {
         }
     }
     
-    // MARK: - Set Bottom Card Animations
+}
+
+// MARK: - Animations
+
+extension PhotoPreviewViewController {
     
     private func animateTransition(state: Mode.CardState, duration: TimeInterval) {
         if runningAnimation.isEmpty {
@@ -226,7 +233,11 @@ class PhotoPreviewViewController: UIViewController {
         }
     }
     
-    // MARK: - Set Sheet
+}
+
+// MARK: - Sheet
+
+extension PhotoPreviewViewController {
     
     private func presentActionSheet() {
         AlertDisplayer.instance.showEditPhoto(vc: self, title: "Choose Edit Action", message: "Do you want to update or share ?")
@@ -246,10 +257,14 @@ class PhotoPreviewViewController: UIViewController {
         presentActionSheet()
     }
     
-    // MARK: - Navigation
+}
+
+// MARK: - Navigation
+
+extension PhotoPreviewViewController {
     
     private func updateAdventure() {
-        let updateVC = storyboard?.instantiateViewController(identifier: "updateVC") as! UpdateAdventureViewController
+        guard let updateVC = storyboard?.instantiateViewController(identifier: VCId.updateVC) as? UpdateAdventureViewController else { return }
         
         updateVC.navigationItem.largeTitleDisplayMode = .never
         updateVC.title = "Update"
@@ -257,7 +272,7 @@ class PhotoPreviewViewController: UIViewController {
         
         self.navigationController?.pushViewController(updateVC, animated: true)
     }
-
+    
 }
 
 // MARK: - Collection View Delegate
@@ -285,8 +300,6 @@ extension PhotoPreviewViewController: UICollectionViewDelegate {
             changeCardText()
             changeBackgroundImage()
         }
-        
-        print(insideIndexPath)
     }
 
 }
@@ -300,14 +313,11 @@ extension PhotoPreviewViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = photoCollectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoPreviewCollectionViewCell
+        guard let cell = photoCollectionView.dequeueReusableCell(withReuseIdentifier: CellId.photoCell, for: indexPath) as? PhotoPreviewCollectionViewCell else {
+            return UICollectionViewCell()
+        }
         
-        cell.imageView.widthAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.width).isActive = true
-        cell.imageView.heightAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.height).isActive = true
-        
-        cell.imageView.image = images[indexPath.row]
-        cell.backgroundColor = .clear
-        cell.imageView.backgroundColor = .clear
+        cell.configureCell(image: images[indexPath.row])
         
         return cell
     }

@@ -10,6 +10,7 @@ class AddNewViewController: UIViewController {
     @IBOutlet weak var saveBarButton: UIBarButtonItem!
     @IBOutlet weak var cancelBarButton: UIBarButtonItem!
     
+    @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var photoImageView: UIImageView!
     
     @IBOutlet weak var titleTextField: UITextField!
@@ -151,7 +152,7 @@ class AddNewViewController: UIViewController {
     }
     
     private func setAlbumTableView() {
-        albumTableView.frame = CGRect(x: selectAlbumButton.frame.origin.x, y: selectAlbumButton.frame.origin.y + selectAlbumButton.frame.height, width: selectAlbumButton.frame.width, height: 0)
+        albumTableView.frame = CGRect(x: selectAlbumButton.frame.origin.x, y: selectAlbumButton.frame.origin.y + scrollView.frame.origin.y, width: selectAlbumButton.frame.width, height: 0)
         view.addSubview(albumTableView)
         albumTableView.layer.cornerRadius = 5
         
@@ -183,7 +184,7 @@ class AddNewViewController: UIViewController {
         
         UIView.animate(withDuration: 0.4, delay: 0.0, usingSpringWithDamping: 1.0, initialSpringVelocity: 1.0, options: .curveEaseInOut, animations: {
             self.transparentView.alpha = transparentViewAlpha
-            self.albumTableView.frame = CGRect(x: frames.origin.x, y: frames.origin.y + frames.height + additionalY, width: frames.width, height: height)
+            self.albumTableView.frame = CGRect(x: frames.origin.x, y: self.selectAlbumButton.frame.origin.y + self.scrollView.frame.origin.y - self.scrollView.contentOffset.y, width: frames.width, height: height)
         }, completion: nil)
     }
     
@@ -230,8 +231,6 @@ class AddNewViewController: UIViewController {
     }
     
     private func displaySuccessMessage() {
-        print("Success Save")
-        
         AlertDisplayer.instance.showMessageAlert(vc: self, title: "Success Save", message: "You successfully added new adventure.")
         
         discardElements()
@@ -242,8 +241,6 @@ class AddNewViewController: UIViewController {
     }
     
     private func showFailedSaveMessage() {
-        print("Failed Save")
-        
         AlertDisplayer.instance.showMessageAlert(vc: self, title: "Failed Save", message: "You have failed to add new adventure.")
     }
     

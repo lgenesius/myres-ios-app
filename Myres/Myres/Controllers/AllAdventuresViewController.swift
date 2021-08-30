@@ -23,7 +23,7 @@ class AllAdventuresViewController: UIViewController {
         
         setInitialUI()
         
-        AudioService.instance.playBackgroundMusic(sound: "bgm", type: "mp3")
+        AudioService.instance.playBackgroundMusic(sound: "forest", type: "mp3")
         
         NotificationCenter.default.addObserver(self, selector: #selector(appMoveToBackground), name: UIApplication.willResignActiveNotification, object: nil)
         
