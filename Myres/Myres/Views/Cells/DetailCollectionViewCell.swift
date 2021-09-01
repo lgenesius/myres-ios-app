@@ -18,4 +18,11 @@ class DetailCollectionViewCell: UICollectionViewCell {
             selectedIndicator.isHidden = !isSelected
         }
     }
+    
+    func configureCell(image: UIImage?) {
+        self.detailImageView.image = image
+        self.detailImageView.frame = contentView.frame
+        
+        self.layer.cornerRadius = 10
+    }
 }

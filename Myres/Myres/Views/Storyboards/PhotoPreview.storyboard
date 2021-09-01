@@ -136,14 +136,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="top" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vGi-6A-ciZ">
-                                <rect key="frame" x="20" y="271" width="374" height="160"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="160" id="JPp-ZK-Q2r"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album of" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aGh-g8-QUf">
                                 <rect key="frame" x="20" y="451" width="70.5" height="21"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
@@ -162,29 +154,39 @@
                                     <action selector="selectAlbumAction:" destination="oen-0E-GZP" eventType="touchUpInside" id="Wu8-0A-fK5"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="B8N-vr-oeI">
+                                <rect key="frame" x="20" y="271" width="374" height="160"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="160" id="HZR-NW-fhz"/>
+                                </constraints>
+                                <color key="textColor" systemColor="labelColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="X5i-qE-K2k"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="fQT-Fh-9KH" firstAttribute="top" secondItem="RaL-x2-McY" secondAttribute="bottom" constant="8" symbolic="YES" id="0aY-Cf-Ilp"/>
+                            <constraint firstItem="B8N-vr-oeI" firstAttribute="leading" secondItem="X5i-qE-K2k" secondAttribute="leading" constant="20" id="0m6-t7-r32"/>
                             <constraint firstItem="RaL-x2-McY" firstAttribute="leading" secondItem="X5i-qE-K2k" secondAttribute="leading" constant="20" id="7ba-NG-nGQ"/>
+                            <constraint firstItem="aGh-g8-QUf" firstAttribute="top" secondItem="B8N-vr-oeI" secondAttribute="bottom" constant="20" id="B54-p8-Flw"/>
                             <constraint firstItem="X5i-qE-K2k" firstAttribute="trailing" secondItem="6TL-Fh-F8I" secondAttribute="trailing" constant="20" id="BVx-PS-kMI"/>
-                            <constraint firstItem="X5i-qE-K2k" firstAttribute="trailing" secondItem="vGi-6A-ciZ" secondAttribute="trailing" constant="20" id="C67-pE-9bc"/>
-                            <constraint firstItem="vGi-6A-ciZ" firstAttribute="leading" secondItem="X5i-qE-K2k" secondAttribute="leading" constant="20" id="CN8-V7-QWJ"/>
                             <constraint firstItem="6TL-Fh-F8I" firstAttribute="leading" secondItem="X5i-qE-K2k" secondAttribute="leading" constant="20" id="DeI-Qm-JFt"/>
-                            <constraint firstItem="aGh-g8-QUf" firstAttribute="top" secondItem="vGi-6A-ciZ" secondAttribute="bottom" constant="20" id="HfX-1j-f9P"/>
                             <constraint firstItem="xK2-zx-CPu" firstAttribute="top" secondItem="fQT-Fh-9KH" secondAttribute="bottom" constant="20" id="I46-sk-Lyy"/>
                             <constraint firstItem="X5i-qE-K2k" firstAttribute="trailing" secondItem="wLQ-WT-6Y9" secondAttribute="trailing" constant="20" id="Ih7-fP-8qo"/>
                             <constraint firstItem="fQT-Fh-9KH" firstAttribute="leading" secondItem="X5i-qE-K2k" secondAttribute="leading" constant="20" id="Jdn-0p-85x"/>
                             <constraint firstItem="RaL-x2-McY" firstAttribute="top" secondItem="6TL-Fh-F8I" secondAttribute="bottom" constant="20" id="PLb-OG-0K4"/>
                             <constraint firstItem="X5i-qE-K2k" firstAttribute="trailing" secondItem="fQT-Fh-9KH" secondAttribute="trailing" constant="20" id="PSK-OA-Ddz"/>
-                            <constraint firstItem="vGi-6A-ciZ" firstAttribute="top" secondItem="xK2-zx-CPu" secondAttribute="bottom" constant="8" symbolic="YES" id="Tjh-xR-zOY"/>
                             <constraint firstItem="xK2-zx-CPu" firstAttribute="leading" secondItem="X5i-qE-K2k" secondAttribute="leading" constant="20" id="UYo-Ku-EMI"/>
                             <constraint firstItem="gIW-4f-e2H" firstAttribute="top" secondItem="X5i-qE-K2k" secondAttribute="top" constant="20" id="V8Y-ud-j5M"/>
                             <constraint firstItem="wLQ-WT-6Y9" firstAttribute="top" secondItem="aGh-g8-QUf" secondAttribute="bottom" constant="8" symbolic="YES" id="bfs-bJ-ORx"/>
                             <constraint firstItem="gIW-4f-e2H" firstAttribute="leading" secondItem="X5i-qE-K2k" secondAttribute="leading" constant="20" id="bkD-e2-tlU"/>
                             <constraint firstItem="aGh-g8-QUf" firstAttribute="leading" secondItem="X5i-qE-K2k" secondAttribute="leading" constant="20" id="cJb-1V-Cm3"/>
                             <constraint firstItem="wLQ-WT-6Y9" firstAttribute="leading" secondItem="X5i-qE-K2k" secondAttribute="leading" constant="20" id="fUo-vh-aga"/>
+                            <constraint firstItem="B8N-vr-oeI" firstAttribute="top" secondItem="xK2-zx-CPu" secondAttribute="bottom" constant="8" symbolic="YES" id="jVp-KQ-gmf"/>
+                            <constraint firstItem="X5i-qE-K2k" firstAttribute="trailing" secondItem="B8N-vr-oeI" secondAttribute="trailing" constant="20" id="lwf-jJ-k7I"/>
                             <constraint firstItem="6TL-Fh-F8I" firstAttribute="top" secondItem="gIW-4f-e2H" secondAttribute="bottom" constant="8" symbolic="YES" id="ygz-k8-0ja"/>
                         </constraints>
                     </view>
@@ -192,18 +194,21 @@
                     <connections>
                         <outlet property="locationTextField" destination="fQT-Fh-9KH" id="LGB-ZR-z0r"/>
                         <outlet property="selectedAlbumButton" destination="wLQ-WT-6Y9" id="hxD-D1-PCi"/>
-                        <outlet property="storyTextField" destination="vGi-6A-ciZ" id="12U-jk-yl0"/>
+                        <outlet property="storyTextView" destination="B8N-vr-oeI" id="hx6-WI-zt7"/>
                         <outlet property="titleTextField" destination="6TL-Fh-F8I" id="2JM-4Y-I9w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ffu-Jd-DkJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="815" y="-12"/>
+            <point key="canvasLocation" x="814.49275362318849" y="-12.053571428571429"/>
         </scene>
     </scenes>
     <resources>
         <image name="ant-photo" width="6000" height="4000"/>
         <image name="chevron.down.circle.fill" catalog="system" width="128" height="121"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="linkColor">
             <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

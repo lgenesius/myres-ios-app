@@ -9,13 +9,16 @@ public class AudioService {
         if let path = Bundle.main.path(forResource: sound, ofType: type) {
             do {
                 audioPlayer = try AVAudioPlayer(contentsOf: URL(fileURLWithPath: path))
-                audioPlayer?.volume = 0.4
-                audioPlayer?.play()
+                audioPlayer?.volume = 0.6
                 audioPlayer?.numberOfLoops = -1
             }
             catch {
                 print(error.localizedDescription)
             }
+        }
+        
+        if !UserDefaults.standard.bool(forKey: "Mute On") {
+            audioPlayer?.play()
         }
     }
     

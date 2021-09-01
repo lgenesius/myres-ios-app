@@ -62,11 +62,15 @@ class AllAdventuresViewController: UIViewController {
     // MARK: - Audio Action
     
     @objc func appMoveToBackground() {
-        AudioService.instance.pauseMusic()
+        if UserDefaults.standard.bool(forKey: "Music On") {
+            AudioService.instance.pauseMusic()
+        }
     }
     
     @objc func appMoveToForeground() {
-        AudioService.instance.resumeMusic()
+        if UserDefaults.standard.bool(forKey: "Music On") {
+            AudioService.instance.resumeMusic()
+        }
     }
 }
 
@@ -93,13 +97,13 @@ extension AllAdventuresViewController {
         leftBarButton.tintColor = .clear
         leftBarButton.isEnabled = false
         adventuresCollectionView.allowsMultipleSelection = false
-        self.tabBarController!.tabBar.items?.forEach { $0.isEnabled = true }
+        self.tabBarController?.tabBar.items?.forEach { $0.isEnabled = true }
     }
     
     private func selectedCondition() {
         rightBarButton.title = "Cancel"
         adventuresCollectionView.allowsMultipleSelection = true
-        self.tabBarController!.tabBar.items?.forEach { $0.isEnabled = false }
+        self.tabBarController?.tabBar.items?.forEach { $0.isEnabled = false }
     }
     
     private func setCanceledUI() {
@@ -134,10 +138,12 @@ extension AllAdventuresViewController {
     private func navigationToPhotoPreview(indexPath: IndexPath) {
         adventuresCollectionView.deselectItem(at: indexPath, animated: true)
         
+        guard let date = adventures[indexPath.row].date else { return }
+        
         let photoPreviewStoryboard = UIStoryboard(name: StoryboardId.PhotoPreview, bundle: nil)
         let photoPreviewVC = photoPreviewStoryboard.instantiateViewController(identifier: VCId.photoPreview) as PhotoPreviewViewController
         
-        photoPreviewVC.title = DateFormatterService.instance.dateToString(date: adventures[indexPath.row].date!)
+        photoPreviewVC.title = DateFormatterService.instance.dateToString(date: date)
         photoPreviewVC.adventures = self.adventures
         photoPreviewVC.images = self.images
         photoPreviewVC.initialIndexPath = indexPath
@@ -155,18 +161,21 @@ extension AllAdventuresViewController {
     }
     
     @IBAction func removeTapButton(_ sender: Any) {
-
-        for (key, value) in dictionarySelectedIndexPath {
-            if value {
-
-                FileManagerService.instance.deleteImageInStorage(imageName: adventures[key.row].photo!)
-                CoreDataService.instance.deleteAdventure(adventure: adventures[key.row])
+        AlertDisplayer.instance.showConfirmationAlert(vc: self, title: "Confirmation", message: "Are you sure you want to delete this ?") { [weak self] in
+            guard let self = self else { return }
+            for (key, value) in self.dictionarySelectedIndexPath {
+                if value {
+                    guard let photo = self.adventures[key.row].photo else { continue }
+                    FileManagerService.instance.deleteImageInStorage(imageName: photo)
+                    CoreDataService.instance.deleteAdventure(adventure: self.adventures[key.row])
+                }
             }
-        }
 
-        dictionarySelectedIndexPath.removeAll()
-        checkSelectedCell()
-        loadAdventures()
+            self.dictionarySelectedIndexPath.removeAll()
+            self.checkSelectedCell()
+            self.loadAdventures()
+            
+        }
     }
 }
 

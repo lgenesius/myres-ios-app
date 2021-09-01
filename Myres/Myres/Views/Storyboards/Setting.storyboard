@@ -11,16 +11,48 @@
         <!--Setting-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="SettingViewController" customModule="Myres" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="669-jK-pW1">
+                                <rect key="frame" x="345" y="160" width="51" height="31"/>
+                                <connections>
+                                    <action selector="musicSwitchChanged:" destination="Y6W-OH-hqX" eventType="valueChanged" id="55p-Xq-K2a"/>
+                                </connections>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Music" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3l-1w-2nd">
+                                <rect key="frame" x="20" y="160" width="61.5" height="28"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="23"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Background Music by Lesfm from Pixabay" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m8a-58-rxG">
+                                <rect key="frame" x="20" y="772.5" width="374" height="20.5"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="m8a-58-rxG" secondAttribute="trailing" constant="20" id="3Re-jt-hgb"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="669-jK-pW1" secondAttribute="trailing" constant="20" id="Vz5-Mw-vKk"/>
+                            <constraint firstItem="R3l-1w-2nd" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="YOi-3h-5Hk"/>
+                            <constraint firstItem="m8a-58-rxG" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="20" id="dqu-KT-qMm"/>
+                            <constraint firstItem="669-jK-pW1" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="rfX-HC-dex"/>
+                            <constraint firstItem="R3l-1w-2nd" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="20" id="xdB-AN-A2H"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="m8a-58-rxG" secondAttribute="bottom" constant="20" id="zFG-0E-G1R"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Setting" image="gearshape" catalog="system" selectedImage="gearshape.fill" id="4YD-bD-S9S"/>
                     <navigationItem key="navigationItem" title="Setting" id="quj-rl-5oK"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="musicSwitch" destination="669-jK-pW1" id="Kjo-5Q-3K5"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

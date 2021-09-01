@@ -22,8 +22,6 @@ class AlbumsViewController: UIViewController {
         loadAlbums()
         
         NotificationCenter.default.addObserver(self, selector: #selector(reloadCollectionView), name: .updatePhotoAlbum, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(saveAlbum), name: Notification.Name("oneFieldAlertAction\(self)"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,17 +48,6 @@ extension AlbumsViewController {
         DispatchQueue.main.async {
             self.albumCollectionView.reloadData()
         }
-    }
-    
-    @objc func saveAlbum() {
-        guard let textField = AlertDisplayer.instance.alertTextField else { return }
-        
-        CoreDataService.instance.saveAlbum(title: textField.text!)
-        
-        AlertDisplayer.instance.alertTextField = nil
-        
-        NotificationCenter.default.post(name: Notification.Name("albumAdded"), object: nil)
-        self.loadAlbums()
     }
     
     private func switchCondition() {
@@ -119,24 +106,37 @@ extension AlbumsViewController {
     }
     
     private func plusTapped() {
-        AlertDisplayer.instance.showOneTextFieldAlert(vc: self, title: "New Album", message: "Enter album's title.")
+        AlertDisplayer.instance.showOneTextFieldAlert(vc: self, title: "New Album", message: "Enter album's title.") { textField in
+            guard let textField = textField else { return }
+            guard let text = textField.text else { return }
+            guard !text.isEmpty else { return }
+            
+            CoreDataService.instance.saveAlbum(title: text)
+            
+            NotificationCenter.default.post(name: Notification.Name("albumAdded"), object: nil)
+            self.loadAlbums()
+        }
     }
     
     private func removeTapped() {
-        if let adventures = CoreDataService.instance.fetchAdventuresBasedOnAlbum(album: albums[selectedIndexPath!.row]) {
+        AlertDisplayer.instance.showConfirmationAlert(vc: self, title: "Confirmation", message: "Are you sure you want to delete this album ?") { [weak self] in
+            guard let self = self else { return }
             
-            for adventure in adventures {
-                adventure.parentAlbum = nil
+            if let adventures = CoreDataService.instance.fetchAdventuresBasedOnAlbum(album: self.albums[self.selectedIndexPath!.row]) {
+                
+                for adventure in adventures {
+                    adventure.parentAlbum = nil
+                }
             }
+            
+            CoreDataService.instance.deleteAlbum(album: self.albums[self.selectedIndexPath!.row])
+            self.selectedIndexPath = nil
+            
+            NotificationCenter.default.post(name: .albumAdded, object: nil)
+            
+            self.showRemoveIcon()
+            self.loadAlbums()
         }
-        
-        CoreDataService.instance.deleteAlbum(album: albums[selectedIndexPath!.row])
-        selectedIndexPath = nil
-        
-        NotificationCenter.default.post(name: .albumAdded, object: nil)
-        
-        showRemoveIcon()
-        loadAlbums()
     }
 }
 

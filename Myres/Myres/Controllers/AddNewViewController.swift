@@ -1,5 +1,6 @@
 import UIKit
 import PhotosUI
+import Photos
 
 class AddNewViewController: UIViewController {
 
@@ -16,6 +17,7 @@ class AddNewViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var storyTextField: UITextField!
+    @IBOutlet weak var storyTextView: UITextView!
     
     @IBOutlet weak var selectAlbumButton: UIButton!
 
@@ -44,12 +46,6 @@ class AddNewViewController: UIViewController {
         loadAlbums()
         
         NotificationCenter.default.addObserver(self, selector: #selector(selectorLoadAlbums), name: Notification.Name("albumAdded"), object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(cancelAction), name: Notification.Name("canceledAction\(self)"), object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(takePhotoAction), name: Notification.Name("cameraAction"), object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(photoLibraryAction), name: Notification.Name("photoLibraryAction"), object: nil)
         
         setPhotoUI()
         setTextFieldUI()
@@ -81,10 +77,15 @@ class AddNewViewController: UIViewController {
         locationTextField.layer.borderColor = UIColor.label.cgColor
         locationTextField.layer.cornerRadius = 10
         
-        storyTextField.delegate = self
-        storyTextField.layer.borderWidth = 1
-        storyTextField.layer.borderColor = UIColor.label.cgColor
-        storyTextField.layer.cornerRadius = 10
+        
+        storyTextView.delegate = self
+        storyTextView.layer.borderWidth = 1
+        storyTextView.layer.borderColor = UIColor.label.cgColor
+        storyTextView.layer.cornerRadius = 10
+        
+        storyTextView.text = "Add your story.."
+        storyTextView.textColor = .darkGray
+        storyTextView.addDoneButton(title: "Done", target: self, selector: #selector(tapDone(sender:)))
     }
     
     private func setButtonUI() {
@@ -101,7 +102,7 @@ class AddNewViewController: UIViewController {
     private func setElementVisible() {
         titleTextField.isHidden = false
         locationTextField.isHidden = false
-        storyTextField.isHidden = false
+        storyTextView.isHidden = false
         selectAlbumButton.isHidden = false
         photoImageView.isHidden = false
         
@@ -115,7 +116,7 @@ class AddNewViewController: UIViewController {
     private func setElementInvisible() {
         titleTextField.isHidden = true
         locationTextField.isHidden = true
-        storyTextField.isHidden = true
+        storyTextView.isHidden = true
         selectAlbumButton.isHidden = true
         photoImageView.isHidden = true
         
@@ -131,6 +132,7 @@ class AddNewViewController: UIViewController {
         setElementInvisible()
         photoImageView.image = nil
         photoDate = nil
+        getSelectedAlbum = nil
         makeToNormal()
         
     }
@@ -167,7 +169,7 @@ class AddNewViewController: UIViewController {
         selectAlbumButton.setTitle("Select Album        ", for: .normal)
         titleTextField.text = ""
         locationTextField.text = ""
-        storyTextField.text = ""
+        storyTextView.text = ""
     }
     
     // MARK: - Set Tap Gesture
@@ -191,21 +193,67 @@ class AddNewViewController: UIViewController {
     // MARK: - Set Action Sheet
     
     private func setActionSheet() {
-        AlertDisplayer.instance.showNewPhotoActionSheet(vc: self, title: "Choose Photo Source", message: "Do you want to add photo from photo library or take picture using new camera ?")
+        AlertDisplayer.instance.showNewPhotoActionSheet(vc: self, title: "Choose Photo Source", message: "Do you want to add photo from photo library or take picture using new camera ?") { [weak self] action in
+            guard let title = action.title else { return }
+            if title == "Camera" {
+                self?.takePicture()
+            } else if title == "Photo Library" {
+                self?.addPhotoFromLibrary()
+            }
+        }
     }
     
     private func takePicture() {
+        switch CameraService.getCameraAuthorizationStatus() {
+        case .granted:
+            accessToCamera()
+        case .unauthorized:
+            giveAlertOpenSettings()
+        case .notRequested:
+            requestCameraAuthorization()
+        }
+    }
+    
+    private func requestCameraAuthorization() {
+        CameraService.requestCameraAuthorization { [weak self] status in
+            if status == .granted {
+                self?.accessToCamera()
+            }
+        }
+    }
+    
+    private func accessToCamera() {
         let picker = UIImagePickerController()
+        picker.allowsEditing = false
         picker.sourceType = .camera
+        
         picker.delegate = self
         present(picker, animated: true)
     }
     
+    private func giveAlertOpenSettings() {
+        let alert = UIAlertController(title: "No Camera Permission", message: "To access Camera in Myres, you have to give permission in Settings.", preferredStyle: .alert)
+        
+        alert.addAction(UIAlertAction(title: "Open Settings", style: .default, handler: { action in
+            let settingURLString = UIApplication.openSettingsURLString
+            if let settingsURL = URL(string: settingURLString) {
+                UIApplication.shared.open(settingsURL, options: [:], completionHandler: nil)
+            }
+        }))
+        
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        present(alert, animated: true)
+    }
+    
     private func addPhotoFromLibrary() {
-        let picker = UIImagePickerController()
-        picker.sourceType = .photoLibrary
-        picker.delegate = self
-        present(picker, animated: true)
+        var config = PHPickerConfiguration(photoLibrary: .shared())
+        config.selectionLimit = 1
+        config.filter = PHPickerFilter.images
+        let vc = PHPickerViewController(configuration: config)
+        vc.delegate = self
+        present(vc, animated: true, completion: nil)
     }
     
     // MARK: - Save Method
@@ -224,7 +272,7 @@ class AddNewViewController: UIViewController {
         }
         
         let bool = CoreDataService.instance.saveAdventure(title: title, location: location, story: story, date: dateNow, photo: imageName, album: album)
-        
+        getSelectedAlbum = nil
         NotificationCenter.default.post(name: Notification.Name("adventureAdded"), object: nil)
         
         (bool == true) ? displaySuccessMessage() : showFailedSaveMessage()
@@ -237,7 +285,7 @@ class AddNewViewController: UIViewController {
         
         titleTextField.resignFirstResponder()
         locationTextField.resignFirstResponder()
-        storyTextField.resignFirstResponder()
+        storyTextView.resignFirstResponder()
     }
     
     private func showFailedSaveMessage() {
@@ -253,16 +301,12 @@ class AddNewViewController: UIViewController {
     @objc func cancelAction() {
         self.discardElements()
     }
-    
-    @objc func takePhotoAction() {
-        self.takePicture()
-    }
-    
-    @objc func photoLibraryAction() {
-        self.addPhotoFromLibrary()
-    }
 
     // MARK: - Button Actions
+    
+    @objc func tapDone(sender: Any) {
+        self.view.endEditing(true)
+    }
     
     @IBAction func addPhotoAction(_ sender: Any) {
         setActionSheet()
@@ -273,7 +317,7 @@ class AddNewViewController: UIViewController {
     }
     
     @IBAction func saveButtonAction(_ sender: Any) {
-        if let titleText = self.titleTextField.text, !titleText.isEmpty, let locationText = self.locationTextField.text, !locationText.isEmpty, let storyText = self.storyTextField.text, !storyText.isEmpty {
+        if let titleText = self.titleTextField.text, !titleText.isEmpty, let locationText = self.locationTextField.text, !locationText.isEmpty, storyTextView.textColor != .darkGray, let storyText = self.storyTextView.text, !storyText.isEmpty {
             
             saveAdventure(title: titleText, location: locationText, story: storyText)
             
@@ -283,7 +327,11 @@ class AddNewViewController: UIViewController {
     }
     
     @IBAction func cancelButtonAction(_ sender: Any) {
-        AlertDisplayer.instance.showCancelAlert(vc: self, title: "Confirmation", message: "Are you sure you want to discard ?")
+        AlertDisplayer.instance.showConfirmationAlert(vc: self, title: "Confirmation", message: "Are you sure you want to discard ?") { [weak self] in
+            guard let self = self else { return }
+            
+            self.discardElements()
+        }
     }
 
 }
@@ -294,6 +342,45 @@ extension AddNewViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+}
+
+extension AddNewViewController: UITextViewDelegate {
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == .darkGray {
+            textView.text = ""
+            textView.textColor = .label
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Add your story.."
+            textView.textColor = .darkGray
+        }
+    }
+}
+
+// MARK: - PHPickerViewController Delegate
+
+extension AddNewViewController: PHPickerViewControllerDelegate {
+    func picker(_ picker: PHPickerViewController, didFinishPicking results: [PHPickerResult]) {
+        picker.dismiss(animated: true, completion: nil)
+        
+        guard !results.isEmpty else { return }
+        let imageResult = results[0]
+        
+        imageResult.itemProvider.loadObject(ofClass: UIImage.self) { [weak self] reading, error in
+            guard let image = reading as? UIImage, error == nil else {
+                return
+            }
+            DispatchQueue.main.async {
+                self?.photoDate = Date()
+                self?.infoLabel.isHidden = true
+                self?.setElementVisible()
+                self?.photoImageView?.image = image
+            }
+        }
     }
 }
 

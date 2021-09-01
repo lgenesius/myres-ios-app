@@ -172,14 +172,11 @@ extension DetailAlbumViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = detailCollectionView.dequeueReusableCell(withReuseIdentifier: "detailCell", for: indexPath) as! DetailCollectionViewCell
+        guard let cell = detailCollectionView.dequeueReusableCell(withReuseIdentifier: "detailCell", for: indexPath) as? DetailCollectionViewCell, let photo = adventures[indexPath.row].photo else {
+            return UICollectionViewCell()
+        }
         
-        cell.detailImageView.widthAnchor.constraint(equalToConstant: view.frame.size.width * 0.3).isActive = true
-        cell.detailImageView.heightAnchor.constraint(equalToConstant: view.frame.size.width * 0.3).isActive = true
-        cell.layer.cornerRadius = 10
-        
-        cell.detailImageView.image = FileManagerService.instance.getImageFromStorage(imageName: adventures[indexPath.row].photo!)
-        
+        cell.configureCell(image: FileManagerService.instance.getImageFromStorage(imageName: photo))
         images.append(cell.detailImageView.image!)
         
         return cell

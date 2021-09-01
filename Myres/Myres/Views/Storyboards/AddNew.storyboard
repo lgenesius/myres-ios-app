@@ -68,20 +68,12 @@ Take new photo using camera</string>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter the title.." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4Lu-Eu-oRL">
                                                 <rect key="frame" x="20" y="230" width="374" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter the location.." textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iYT-qu-EOt">
                                                 <rect key="frame" x="20" y="274" width="374" height="34"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" borderStyle="roundedRect" placeholder="Tell the story.." minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="tEI-Oz-8Ti">
-                                                <rect key="frame" x="20" y="316" width="374" height="130"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="130" id="ZOX-LV-aOb"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" semanticContentAttribute="forceRightToLeft" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aac-BS-yJV">
                                                 <rect key="frame" x="20" y="456" width="374" height="40"/>
@@ -96,12 +88,23 @@ Take new photo using camera</string>
                                                     <action selector="selectAlbumAction:" destination="7uo-Wp-s7l" eventType="touchUpInside" id="qKA-in-mTO"/>
                                                 </connections>
                                             </button>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RHa-2F-i2f">
+                                                <rect key="frame" x="20" y="318" width="374" height="128"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="128" id="PUF-pF-qXR"/>
+                                                </constraints>
+                                                <color key="textColor" systemColor="labelColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                            </textView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
+                                            <constraint firstItem="RHa-2F-i2f" firstAttribute="top" secondItem="iYT-qu-EOt" secondAttribute="bottom" constant="10" id="160-Mo-OZQ"/>
+                                            <constraint firstItem="aac-BS-yJV" firstAttribute="top" secondItem="RHa-2F-i2f" secondAttribute="bottom" constant="10" id="4EO-Fa-prz"/>
                                             <constraint firstItem="hS7-K3-dOm" firstAttribute="top" secondItem="HeZ-tg-wjd" secondAttribute="top" constant="20" symbolic="YES" id="4sw-ce-9dZ"/>
-                                            <constraint firstAttribute="trailing" secondItem="tEI-Oz-8Ti" secondAttribute="trailing" constant="20" symbolic="YES" id="98g-L3-1dF"/>
-                                            <constraint firstItem="tEI-Oz-8Ti" firstAttribute="leading" secondItem="HeZ-tg-wjd" secondAttribute="leading" constant="20" symbolic="YES" id="9eL-dg-qu1"/>
+                                            <constraint firstItem="RHa-2F-i2f" firstAttribute="leading" secondItem="HeZ-tg-wjd" secondAttribute="leading" constant="20" symbolic="YES" id="Hdt-1l-kGv"/>
                                             <constraint firstItem="hS7-K3-dOm" firstAttribute="centerX" secondItem="HeZ-tg-wjd" secondAttribute="centerX" id="Hmd-ms-gLv"/>
                                             <constraint firstItem="aac-BS-yJV" firstAttribute="leading" secondItem="HeZ-tg-wjd" secondAttribute="leading" constant="20" symbolic="YES" id="LFL-rZ-hg6"/>
                                             <constraint firstItem="iYT-qu-EOt" firstAttribute="top" secondItem="4Lu-Eu-oRL" secondAttribute="bottom" constant="10" id="Nzu-A5-jip"/>
@@ -110,12 +113,11 @@ Take new photo using camera</string>
                                             <constraint firstAttribute="trailing" secondItem="4Lu-Eu-oRL" secondAttribute="trailing" constant="20" symbolic="YES" id="Unf-12-ydO"/>
                                             <constraint firstAttribute="trailing" secondItem="aac-BS-yJV" secondAttribute="trailing" constant="20" symbolic="YES" id="dDo-jq-HZE"/>
                                             <constraint firstItem="4Lu-Eu-oRL" firstAttribute="top" secondItem="hS7-K3-dOm" secondAttribute="bottom" constant="10" id="eFn-7J-SOI"/>
-                                            <constraint firstItem="tEI-Oz-8Ti" firstAttribute="top" secondItem="iYT-qu-EOt" secondAttribute="bottom" constant="8" symbolic="YES" id="eNG-My-sgj"/>
+                                            <constraint firstAttribute="trailing" secondItem="RHa-2F-i2f" secondAttribute="trailing" constant="20" symbolic="YES" id="esG-BF-Tel"/>
                                             <constraint firstItem="iYT-qu-EOt" firstAttribute="leading" secondItem="HeZ-tg-wjd" secondAttribute="leading" constant="20" symbolic="YES" id="f6m-Zk-ai2"/>
                                             <constraint firstItem="hS7-K3-dOm" firstAttribute="leading" secondItem="HeZ-tg-wjd" secondAttribute="leading" constant="20" symbolic="YES" id="h9Z-GJ-Uv2"/>
                                             <constraint firstAttribute="trailing" secondItem="hS7-K3-dOm" secondAttribute="trailing" constant="20" symbolic="YES" id="kML-gO-UaS"/>
                                             <constraint firstAttribute="height" constant="516" id="lUD-1d-kDE"/>
-                                            <constraint firstItem="aac-BS-yJV" firstAttribute="top" secondItem="tEI-Oz-8Ti" secondAttribute="bottom" constant="10" id="pxc-pW-3ZQ"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -170,7 +172,7 @@ Take new photo using camera</string>
                         <outlet property="saveBarButton" destination="G68-Hy-sT6" id="4pZ-uo-6q0"/>
                         <outlet property="scrollView" destination="2mf-4S-McF" id="dzg-Cv-y77"/>
                         <outlet property="selectAlbumButton" destination="aac-BS-yJV" id="Y1x-Lh-nRE"/>
-                        <outlet property="storyTextField" destination="tEI-Oz-8Ti" id="WRm-eg-A9e"/>
+                        <outlet property="storyTextView" destination="RHa-2F-i2f" id="Jze-dn-O6F"/>
                         <outlet property="titleTextField" destination="4Lu-Eu-oRL" id="GiW-Ls-cY6"/>
                     </connections>
                 </viewController>
@@ -184,6 +186,9 @@ Take new photo using camera</string>
         <image name="chevron.down.circle" catalog="system" width="128" height="121"/>
         <image name="newspaper" catalog="system" width="128" height="108"/>
         <image name="newspaper.fill" catalog="system" width="128" height="111"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="placeholderTextColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

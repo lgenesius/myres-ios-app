@@ -7,16 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E10642F126DE9A8C00941C84 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10642F026DE9A8C00941C84 /* SettingViewController.swift */; };
+		E10C08A026DF0B00004AFCC0 /* CameraService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10C089F26DF0B00004AFCC0 /* CameraService.swift */; };
 		E10CFB9B26401A7B006E60D8 /* DetailAlbumViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10CFB9A26401A7B006E60D8 /* DetailAlbumViewController.swift */; };
 		E10CFB9E264021A7006E60D8 /* DetailCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10CFB9D264021A7006E60D8 /* DetailCollectionViewCell.swift */; };
-		E10F3FC9264169DB00CF7ECD /* bgm.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E10F3FC8264169DB00CF7ECD /* bgm.mp3 */; };
 		E10F3FCC26416F4D00CF7ECD /* AudioService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10F3FCB26416F4D00CF7ECD /* AudioService.swift */; };
 		E10FAFF9263A4A600067E333 /* CoreDataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = E10FAFF8263A4A600067E333 /* CoreDataService.swift */; };
 		E1144A1426DB0BBE0012E4AC /* Setting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1144A1326DB0BBE0012E4AC /* Setting.storyboard */; };
-		E1144A1726DB817A0012E4AC /* PhotoCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1144A1626DB817A0012E4AC /* PhotoCategory.swift */; };
 		E1144A1926DB847D0012E4AC /* UIImage+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1144A1826DB847D0012E4AC /* UIImage+Extension.swift */; };
-		E1144A1B26DB84DE0012E4AC /* ImageClassifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1144A1A26DB84DE0012E4AC /* ImageClassifier.swift */; };
-		E1144A1D26DB85E90012E4AC /* GoogLeNetPlaces.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = E1144A1C26DB85E90012E4AC /* GoogLeNetPlaces.mlmodel */; };
 		E1208028263AAA2B002EFDAF /* PhotoPreview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1208027263AAA2B002EFDAF /* PhotoPreview.storyboard */; };
 		E120802B263AAA3F002EFDAF /* PhotoPreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E120802A263AAA3F002EFDAF /* PhotoPreviewViewController.swift */; };
 		E120802E263AAD83002EFDAF /* PhotoPreviewCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E120802D263AAD83002EFDAF /* PhotoPreviewCollectionViewCell.swift */; };
@@ -25,6 +23,7 @@
 		E1238A7B264213950024A034 /* UpdateAdventureViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1238A7A264213950024A034 /* UpdateAdventureViewController.swift */; };
 		E1238A8126427C650024A034 /* AlertDisplayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1238A8026427C650024A034 /* AlertDisplayer.swift */; };
 		E1387FEF26DC744D003E686C /* forest.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = E1387FEE26DC744D003E686C /* forest.mp3 */; };
+		E1387FF126DD154A003E686C /* UITextView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1387FF026DD154A003E686C /* UITextView+Extension.swift */; };
 		E141F96626DA7828002670CB /* NotificationName+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E141F96526DA7828002670CB /* NotificationName+Extension.swift */; };
 		E141F96826DA7BC1002670CB /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = E141F96726DA7BC1002670CB /* Constant.swift */; };
 		E14C4F6F263C3E6900CC323C /* AlbumTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E14C4F6E263C3E6900CC323C /* AlbumTableViewCell.swift */; };
@@ -49,16 +48,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E10642F026DE9A8C00941C84 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		E10C089F26DF0B00004AFCC0 /* CameraService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraService.swift; sourceTree = "<group>"; };
 		E10CFB9A26401A7B006E60D8 /* DetailAlbumViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailAlbumViewController.swift; sourceTree = "<group>"; };
 		E10CFB9D264021A7006E60D8 /* DetailCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailCollectionViewCell.swift; sourceTree = "<group>"; };
-		E10F3FC8264169DB00CF7ECD /* bgm.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = bgm.mp3; sourceTree = "<group>"; };
 		E10F3FCB26416F4D00CF7ECD /* AudioService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioService.swift; sourceTree = "<group>"; };
 		E10FAFF8263A4A600067E333 /* CoreDataService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataService.swift; sourceTree = "<group>"; };
 		E1144A1326DB0BBE0012E4AC /* Setting.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Setting.storyboard; sourceTree = "<group>"; };
-		E1144A1626DB817A0012E4AC /* PhotoCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCategory.swift; sourceTree = "<group>"; };
 		E1144A1826DB847D0012E4AC /* UIImage+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extension.swift"; sourceTree = "<group>"; };
-		E1144A1A26DB84DE0012E4AC /* ImageClassifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageClassifier.swift; sourceTree = "<group>"; };
-		E1144A1C26DB85E90012E4AC /* GoogLeNetPlaces.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = GoogLeNetPlaces.mlmodel; sourceTree = "<group>"; };
 		E1208027263AAA2B002EFDAF /* PhotoPreview.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = PhotoPreview.storyboard; sourceTree = "<group>"; };
 		E120802A263AAA3F002EFDAF /* PhotoPreviewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPreviewViewController.swift; sourceTree = "<group>"; };
 		E120802D263AAD83002EFDAF /* PhotoPreviewCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoPreviewCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -67,6 +64,7 @@
 		E1238A7A264213950024A034 /* UpdateAdventureViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdateAdventureViewController.swift; sourceTree = "<group>"; };
 		E1238A8026427C650024A034 /* AlertDisplayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDisplayer.swift; sourceTree = "<group>"; };
 		E1387FEE26DC744D003E686C /* forest.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = forest.mp3; sourceTree = "<group>"; };
+		E1387FF026DD154A003E686C /* UITextView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITextView+Extension.swift"; sourceTree = "<group>"; };
 		E141F96526DA7828002670CB /* NotificationName+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Extension.swift"; sourceTree = "<group>"; };
 		E141F96726DA7BC1002670CB /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		E14C4F6E263C3E6900CC323C /* AlbumTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlbumTableViewCell.swift; sourceTree = "<group>"; };
@@ -107,7 +105,6 @@
 			isa = PBXGroup;
 			children = (
 				E1387FEE26DC744D003E686C /* forest.mp3 */,
-				E10F3FC8264169DB00CF7ECD /* bgm.mp3 */,
 			);
 			path = Sound;
 			sourceTree = "<group>";
@@ -117,7 +114,6 @@
 			children = (
 				E185AAFC263EF28400AEAD38 /* Mode.swift */,
 				E141F96726DA7BC1002670CB /* Constant.swift */,
-				E1144A1626DB817A0012E4AC /* PhotoCategory.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -143,6 +139,7 @@
 			children = (
 				E141F96526DA7828002670CB /* NotificationName+Extension.swift */,
 				E1144A1826DB847D0012E4AC /* UIImage+Extension.swift */,
+				E1387FF026DD154A003E686C /* UITextView+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -202,6 +199,7 @@
 				E120802A263AAA3F002EFDAF /* PhotoPreviewViewController.swift */,
 				E10CFB9A26401A7B006E60D8 /* DetailAlbumViewController.swift */,
 				E1238A7A264213950024A034 /* UpdateAdventureViewController.swift */,
+				E10642F026DE9A8C00941C84 /* SettingViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -211,7 +209,6 @@
 			children = (
 				E185AAE6263E51F500AEAD38 /* Adventure+CoreDataClass.swift */,
 				E185AAE8263E51F500AEAD38 /* Album+CoreDataClass.swift */,
-				E1144A1C26DB85E90012E4AC /* GoogLeNetPlaces.mlmodel */,
 				E1C00EBC263951D000B0EE80 /* Myres.xcdatamodeld */,
 			);
 			path = Models;
@@ -224,7 +221,7 @@
 				E17C2873263D8AD2002C1905 /* FileManagerService.swift */,
 				E185AAF5263E848800AEAD38 /* DateFormatterService.swift */,
 				E10F3FCB26416F4D00CF7ECD /* AudioService.swift */,
-				E1144A1A26DB84DE0012E4AC /* ImageClassifier.swift */,
+				E10C089F26DF0B00004AFCC0 /* CameraService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -314,7 +311,6 @@
 				E1C00EDC263953F100B0EE80 /* Albums.storyboard in Resources */,
 				E1C00EC3263951D100B0EE80 /* LaunchScreen.storyboard in Resources */,
 				E1C00EC0263951D100B0EE80 /* Assets.xcassets in Resources */,
-				E10F3FC9264169DB00CF7ECD /* bgm.mp3 in Resources */,
 				E1208034263ADF75002EFDAF /* BottomCardViewController.xib in Resources */,
 				E1144A1426DB0BBE0012E4AC /* Setting.storyboard in Resources */,
 				E1387FEF26DC744D003E686C /* forest.mp3 in Resources */,
@@ -339,11 +335,10 @@
 				E185AAEA263E51F500AEAD38 /* Adventure+CoreDataClass.swift in Sources */,
 				E10F3FCC26416F4D00CF7ECD /* AudioService.swift in Sources */,
 				E120802E263AAD83002EFDAF /* PhotoPreviewCollectionViewCell.swift in Sources */,
-				E1144A1726DB817A0012E4AC /* PhotoCategory.swift in Sources */,
+				E10C08A026DF0B00004AFCC0 /* CameraService.swift in Sources */,
 				E10FAFF9263A4A600067E333 /* CoreDataService.swift in Sources */,
 				E185AAFA263EE3FB00AEAD38 /* AlbumCollectionViewCell.swift in Sources */,
 				E120802B263AAA3F002EFDAF /* PhotoPreviewViewController.swift in Sources */,
-				E1144A1B26DB84DE0012E4AC /* ImageClassifier.swift in Sources */,
 				E17C2874263D8AD2002C1905 /* FileManagerService.swift in Sources */,
 				E185AAFD263EF28400AEAD38 /* Mode.swift in Sources */,
 				E1208033263ADF75002EFDAF /* BottomCardViewController.swift in Sources */,
@@ -354,9 +349,10 @@
 				E185AAEC263E51F500AEAD38 /* Album+CoreDataClass.swift in Sources */,
 				E1C00EB6263951D000B0EE80 /* SceneDelegate.swift in Sources */,
 				E1144A1926DB847D0012E4AC /* UIImage+Extension.swift in Sources */,
+				E1387FF126DD154A003E686C /* UITextView+Extension.swift in Sources */,
 				E1C00F0B2639902100B0EE80 /* ImageCollectionViewCell.swift in Sources */,
 				E1238A8126427C650024A034 /* AlertDisplayer.swift in Sources */,
-				E1144A1D26DB85E90012E4AC /* GoogLeNetPlaces.mlmodel in Sources */,
+				E10642F126DE9A8C00941C84 /* SettingViewController.swift in Sources */,
 				E14C4F6F263C3E6900CC323C /* AlbumTableViewCell.swift in Sources */,
 				E1C00ED62639528600B0EE80 /* AllAdventuresViewController.swift in Sources */,
 				E1C00EDF2639540400B0EE80 /* AlbumsViewController.swift in Sources */,

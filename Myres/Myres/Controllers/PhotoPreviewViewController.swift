@@ -21,8 +21,8 @@ class PhotoPreviewViewController: UIViewController {
     private var bottomCardVC: BottomCardViewController!
     private var visualEffectView: UIVisualEffectView!
     
-    private let cardHeight: CGFloat = 500
-    private let cardHandleAreaHeight: CGFloat = 82
+    private let cardHeight: CGFloat = 520
+    private let cardHandleAreaHeight: CGFloat = 102
     
     private var cardVisible = false
     private var nextState: Mode.CardState {
@@ -54,10 +54,6 @@ class PhotoPreviewViewController: UIViewController {
         insideIndexPath = initialIndexPath
         backgroundImageView.image = images[initialIndexPath.row]
         changeCardText()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(updateAction), name: .updateAction, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(shareAction), name: .shareAction, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -74,14 +70,6 @@ class PhotoPreviewViewController: UIViewController {
         self.navigationController?.navigationBar.backgroundColor = nil
         navigationItem.largeTitleDisplayMode = .always
         navigationController?.navigationBar.sizeToFit()
-    }
-    
-    @objc func updateAction() {
-        self.updateAdventure()
-    }
-    
-    @objc func shareAction() {
-        self.presentShareSheet()
     }
 }
 
@@ -127,6 +115,10 @@ extension PhotoPreviewViewController {
         bottomCardVC = BottomCardViewController(nibName: "BottomCardViewController", bundle: nil)
         self.addChild(bottomCardVC)
         self.view.addSubview(bottomCardVC.view)
+
+        self.bottomCardVC.titleLabel.alpha = 0
+        self.bottomCardVC.locationLabel.alpha = 0
+        self.bottomCardVC.storyLabel.alpha = 0
         
         bottomCardVC.view.frame = CGRect(x: 0, y: self.view.frame.height - cardHandleAreaHeight, width: self.view.bounds.width, height: cardHeight)
         
@@ -179,8 +171,10 @@ extension PhotoPreviewViewController {
             let frameAnimator = UIViewPropertyAnimator(duration: duration, dampingRatio: 1) {
                 switch state {
                     case .expanded:
+                        self.showLabel()
                         self.bottomCardVC.view.frame.origin.y = self.view.frame.height - self.cardHeight
                     case .collapsed:
+                        self.hideLabel()
                         self.bottomCardVC.view.frame.origin.y = self.view.frame.height - self.cardHandleAreaHeight
                 }
             }
@@ -233,6 +227,21 @@ extension PhotoPreviewViewController {
         }
     }
     
+    private func showLabel() {
+        UIView.animate(withDuration: 0.25) {
+            self.bottomCardVC.titleLabel.alpha = 1
+            self.bottomCardVC.locationLabel.alpha = 1
+            self.bottomCardVC.storyLabel.alpha = 1
+        }
+    }
+    
+    private func hideLabel() {
+        UIView.animate(withDuration: 0.25) {
+            self.bottomCardVC.titleLabel.alpha = 0
+            self.bottomCardVC.locationLabel.alpha = 0
+            self.bottomCardVC.storyLabel.alpha = 0
+        }
+    }
 }
 
 // MARK: - Sheet
@@ -240,17 +249,25 @@ extension PhotoPreviewViewController {
 extension PhotoPreviewViewController {
     
     private func presentActionSheet() {
-        AlertDisplayer.instance.showEditPhoto(vc: self, title: "Choose Edit Action", message: "Do you want to update or share ?")
+        AlertDisplayer.instance.showEditPhoto(vc: self, title: "Choose Edit Action", message: "Do you want to update or share ?") { [weak self] action in
+            guard let title = action.title else { return }
+            if title == "Update" {
+                self?.updateAdventure()
+            } else if title == "Share" {
+                self?.presentShareSheet()
+            }
+        }
     }
     
     private func presentShareSheet() {
         let image = images[insideIndexPath.row]
         
         let shareSheetVC = UIActivityViewController(activityItems: [
-            image,
-            adventures[insideIndexPath.row].story!
+            image
         ], applicationActivities: nil)
-        present(shareSheetVC, animated: true, completion: nil)
+        DispatchQueue.main.async { [weak self] in
+            self?.present(shareSheetVC, animated: true, completion: nil)
+        }
     }
     
     @objc func editTapped() {

@@ -24,7 +24,11 @@ public class FileManagerService {
         let path = (NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as NSString).appendingPathComponent(folderImageName)
         
         if !fileManager.fileExists(atPath: path) {
-            try! fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+            do {
+                try fileManager.createDirectory(atPath: path, withIntermediateDirectories: true, attributes: nil)
+            } catch {
+                print("Error create directory: \(error.localizedDescription)")
+            }
         }
     }
 

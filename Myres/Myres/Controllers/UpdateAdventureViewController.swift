@@ -7,6 +7,7 @@ class UpdateAdventureViewController: UIViewController {
     @IBOutlet weak var titleTextField: UITextField!
     @IBOutlet weak var locationTextField: UITextField!
     @IBOutlet weak var storyTextField: UITextField!
+    @IBOutlet weak var storyTextView: UITextView!
     @IBOutlet weak var selectedAlbumButton: UIButton!
     
     // MARK: - Attributes
@@ -50,10 +51,12 @@ class UpdateAdventureViewController: UIViewController {
         locationTextField.layer.borderColor = UIColor.label.cgColor
         locationTextField.layer.cornerRadius = 10
         
-        storyTextField.delegate = self
-        storyTextField.layer.borderWidth = 1
-        storyTextField.layer.borderColor = UIColor.label.cgColor
-        storyTextField.layer.cornerRadius = 10
+        storyTextView.layer.borderWidth = 1
+        storyTextView.layer.borderColor = UIColor.label.cgColor
+        storyTextView.layer.cornerRadius = 10
+        
+        storyTextView.textColor = .label
+        storyTextView.addDoneButton(title: "Done", target: self, selector: #selector(tapDone(sender:)))
     }
     
     private func setButtonUI() {
@@ -65,7 +68,7 @@ class UpdateAdventureViewController: UIViewController {
     private func setInitialText() {
         titleTextField.text = selectedAdventure?.title
         locationTextField.text = selectedAdventure?.location
-        storyTextField.text = selectedAdventure?.story
+        storyTextView.text = selectedAdventure?.story
         
         if let album = selectedAdventure?.parentAlbum {
             selectedAlbumButton.setTitle(album.title, for: .normal)
@@ -141,7 +144,7 @@ class UpdateAdventureViewController: UIViewController {
     // MARK: - Button Action
     
     @objc func saveTapped() {
-        if let titleText = self.titleTextField.text, !titleText.isEmpty, let locationText = self.locationTextField.text, !locationText.isEmpty, let storyText = self.storyTextField.text, !storyText.isEmpty {
+        if let titleText = self.titleTextField.text, !titleText.isEmpty, let locationText = self.locationTextField.text, !locationText.isEmpty, let storyText = self.storyTextView.text, !storyText.isEmpty {
             
             CoreDataService.instance.updateAdventure(adventure: selectedAdventure!, title: titleText, location: locationText, story: storyText, album: getSelectedAlbum)
             
@@ -153,6 +156,10 @@ class UpdateAdventureViewController: UIViewController {
         } else {
             showValidationAlert()
         }
+    }
+    
+    @objc func tapDone(sender: Any) {
+        self.view.endEditing(true)
     }
 
     @IBAction func selectAlbumAction(_ sender: Any) {
