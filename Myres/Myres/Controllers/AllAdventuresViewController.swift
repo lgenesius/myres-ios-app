@@ -175,6 +175,7 @@ extension AllAdventuresViewController {
             self.checkSelectedCell()
             self.loadAdventures()
             
+            NotificationCenter.default.post(name: Notification.Name("albumAdded"), object: nil)
         }
     }
 }
